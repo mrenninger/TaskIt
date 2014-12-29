@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import CoreData
+
+let SHOULD_CAPITALIZE_TASK = "shouldCapitalizeTask"
+let SHOULD_COMPLETE_NEW_TODO = "shouldCompleteNewTodo"
+let LOADED_ONCE = "loadedOnce"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey(LOADED_ONCE) == false {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: LOADED_ONCE)
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: SHOULD_CAPITALIZE_TASK)
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: SHOULD_COMPLETE_NEW_TODO)
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
         return true
     }
 
@@ -40,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
